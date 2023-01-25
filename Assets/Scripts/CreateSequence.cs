@@ -25,8 +25,6 @@ public class CreateSequence : MonoBehaviour
                 uiHandler.inGameSquenceTextBox[i].text += trimmedStr[i];
                 Debug.Log(trimmedStr[i]);
             }
-
-            Destroy(uiHandler.panel2);
         }
         uiHandler.squenceCounter++;
     }

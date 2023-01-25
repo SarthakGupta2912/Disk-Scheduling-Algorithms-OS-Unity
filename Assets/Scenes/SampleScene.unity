@@ -6998,7 +6998,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Developed by Sarthak Gupta Reviewed by Anshul Ji
+  m_Text: 'Developed by Sarthak Gupta '
 --- !u!222 &1447569038
 CanvasRenderer:
   m_ObjectHideFlags: 0

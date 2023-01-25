@@ -13,8 +13,6 @@ public class LineManager : MonoBehaviour
 
     LineRenderer lineRenderer;
 
-    //[SerializeField] string str = "50,60,30,20,40,80,70,100,90";
-
     // UI related components
     [SerializeField] uiHandler uiHandler;
     [SerializeField] GameObject button;
@@ -74,25 +72,20 @@ public class LineManager : MonoBehaviour
                     //distance from the current position to the required position
                     if (headPosition > i)
                     {
-                        //Debug.Log("Value of i(head>i) --->" + i);
                         //calculate number of elements to move to the right
                         pos_y += (3 * (headPosition - i));
                         pos_x -= 1;
 
                         lineRenderer.SetPosition(lineRendPosition, new Vector3(pos_x, pos_y, 0));
-                        //Debug.Log("no of elemnts to move(head>i): " + (headPosition - i));
                     }
 
                     else
                     {
-
-                        //Debug.Log("Value of i(head<i) --->" + lineRendPosition);
                         //calculate number of elements to move to the left
                         pos_y -= (3 * (i - headPosition));
                         pos_x -= 1;
 
                         lineRenderer.SetPosition(lineRendPosition, new Vector3(pos_x, pos_y, 0));
-                        //Debug.Log("no of elemnts to move (head<i): " + (i - headPosition));
                     }
                     headPosition = i;
                 }
@@ -109,8 +102,6 @@ public class LineManager : MonoBehaviour
 
         else
             Debug.Log("FCFS algorithm completed successfully!");
-
-
     }
 
     public void SeekTime()
