@@ -14,9 +14,6 @@ public class CreateSequence : MonoBehaviour
 
         if (uiHandler.squenceCounter == 8)
         {
-            uiHandler.inGameCanvas.SetActive(true);
-            uiHandler.inGamePanel.SetActive(true);
-
             string[] trimmedStr = new string[9];
             trimmedStr = squenceTextBox.text.Split(' ');
 
@@ -24,6 +21,9 @@ public class CreateSequence : MonoBehaviour
             {
                 uiHandler.inGameSquenceTextBox[i].text += trimmedStr[i];
             }
+
+            uiHandler.inGameCanvas.SetActive(true);
+            uiHandler.inGamePanel.SetActive(true);
             Destroy(uiHandler.panel2);
         }
         uiHandler.squenceCounter++;

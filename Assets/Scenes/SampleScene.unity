@@ -193,7 +193,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 90
+  m_Text: 80
 --- !u!222 &18884022
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -721,9 +721,9 @@ RectTransform:
   - {fileID: 545182161}
   - {fileID: 194974284}
   - {fileID: 288069167}
-  - {fileID: 1797523756}
   - {fileID: 1112925740}
   - {fileID: 1689050828}
+  - {fileID: 1797523756}
   - {fileID: 422020980}
   m_Father: {fileID: 1747718167}
   m_RootOrder: 0
@@ -2459,7 +2459,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &389597236
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2477,7 +2477,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.83970845, y: 0.15100001}
   m_AnchorMax: {x: 0.99635416, y: 0.23781481}
-  m_AnchoredPosition: {x: 1.3999023, y: -1.5}
+  m_AnchoredPosition: {x: 1.3999023, y: 124.3125}
   m_SizeDelta: {x: -1, y: 6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &389597237
@@ -4758,7 +4758,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 80
+  m_Text: 70
 --- !u!222 &794551143
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4837,7 +4837,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 70
+  m_Text: 90
 --- !u!222 &798671480
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5327,7 +5327,7 @@ GameObject:
   - component: {fileID: 1100306100}
   - component: {fileID: 1100306099}
   m_Layer: 5
-  m_Name: Button
+  m_Name: AlgorithmBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5399,7 +5399,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1534299660}
         m_TargetAssemblyTypeName: LineManager, Assembly-CSharp
-        m_MethodName: FCFS
+        m_MethodName: SSTF
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5537,7 +5537,7 @@ GameObject:
   - component: {fileID: 1112925742}
   - component: {fileID: 1112925741}
   m_Layer: 5
-  m_Name: Button (7)
+  m_Name: Button (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5556,7 +5556,7 @@ RectTransform:
   m_Children:
   - {fileID: 794551141}
   m_Father: {fileID: 193608862}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -5909,7 +5909,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: FCFS(First Come First Serve) Algorithm
+  m_Text: Shortest Seek Time First (SSTF) Algorithm
 --- !u!222 &1155769529
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7967,7 +7967,7 @@ GameObject:
   - component: {fileID: 1689050830}
   - component: {fileID: 1689050829}
   m_Layer: 5
-  m_Name: Button (8)
+  m_Name: Button (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7986,7 +7986,7 @@ RectTransform:
   m_Children:
   - {fileID: 18884020}
   m_Father: {fileID: 193608862}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -8517,7 +8517,7 @@ GameObject:
   - component: {fileID: 1797523758}
   - component: {fileID: 1797523757}
   m_Layer: 5
-  m_Name: Button (6)
+  m_Name: Button (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8536,7 +8536,7 @@ RectTransform:
   m_Children:
   - {fileID: 798671478}
   m_Father: {fileID: 193608862}
-  m_RootOrder: 7
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
