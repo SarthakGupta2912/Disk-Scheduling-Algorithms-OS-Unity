@@ -12,12 +12,12 @@ public class CreateSequence : MonoBehaviour
         squenceTextBox.text += _this.transform.GetChild(0).GetComponent<Text>().text + ' ';
         Destroy(_this);
 
-        if (uiHandler.squenceCounter == 8)
+        if (uiHandler.squenceCounter == 6)
         {
             string[] trimmedStr = new string[9];
             trimmedStr = squenceTextBox.text.Split(' ');
 
-            for (int i = 0; i < uiHandler.inGameSquenceTextBox.Length; i++)
+            for (int i = 0; i < uiHandler.inGameSquenceTextBox.Length-2; i++)
             {
                 uiHandler.inGameSquenceTextBox[i].text += trimmedStr[i];
             }
