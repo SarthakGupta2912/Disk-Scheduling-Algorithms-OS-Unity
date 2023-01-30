@@ -4774,6 +4774,7 @@ MonoBehaviour:
   GameOverPanel: {fileID: 266113303}
   scanAlgopanel: {fileID: 458094676}
   squenceCounter: 0
+  _chooseWhichDirSCAN: 
 --- !u!82 &757455175
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5714,7 +5715,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1534299660}
         m_TargetAssemblyTypeName: LineManager, Assembly-CSharp
-        m_MethodName: SCAN
+        m_MethodName: C_SCAN
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6224,7 +6225,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: SCAN (Elevator) Algorithm
+  m_Text: C-SCAN (Circular Elevator) Algorithm
 --- !u!222 &1155769529
 CanvasRenderer:
   m_ObjectHideFlags: 0
