@@ -447,53 +447,6 @@ public class LineManager : MonoBehaviour
         //uiHandler.inGamePanel.transform.GetChild(2).gameObject.SetActive(true);
         int temp = 0;
 
-        // move towards right only, headposition = 0 or at 1st element
-        /* if (storeBeginHeadPos == 0)
-         {
-             sortRequestArrayInAscendingOrder();
-
-             for (int i = 0; i <= requestsTxt.Length - 2; i++)
-             {
-                 uiHandler.GameOverPanel.transform.GetChild(2).GetComponent<Text>().text += "(" + requestsTxt[i + 1].GetComponent<Text>().text + "-" + requestsTxt[i].GetComponent<Text>().text + ")";
-                 if (i <= requestsTxt.Length - 3)
-                     uiHandler.GameOverPanel.transform.GetChild(2).GetComponent<Text>().text += "+";
-             }
-
-             uiHandler.GameOverPanel.transform.GetChild(2).GetComponent<Text>().text += "\n=\n";
-
-             for (int i = 0; i <= requestsTxt.Length - 2; i++)
-             {
-                 uiHandler.GameOverPanel.transform.GetChild(2).GetComponent<Text>().text += int.Parse(requestsTxt[i + 1].GetComponent<Text>().text) - int.Parse(requestsTxt[i].GetComponent<Text>().text);
-                 temp += int.Parse(requestsTxt[i + 1].GetComponent<Text>().text) - int.Parse(requestsTxt[i].GetComponent<Text>().text);
-                 if (i <= requestsTxt.Length - 3)
-                     uiHandler.GameOverPanel.transform.GetChild(2).GetComponent<Text>().text += "+";
-             }
-         }
-
-         // move towards left only, headposition = 9 or at 10th element
-         else if (storeBeginHeadPos == requestsTxt.Length - 1)
-         {
-             //sorting element in the request array in descending order
-             sortRequestArrayInDescdingOrder();
-
-             for (int i = requestsTxt.Length - 1; i >= 1; i--)
-             {
-                 uiHandler.GameOverPanel.transform.GetChild(2).GetComponent<Text>().text += "(" + requestsTxt[i].GetComponent<Text>().text + "-" + requestsTxt[i - 1].GetComponent<Text>().text + ")";
-                 if (i >= 2)
-                     uiHandler.GameOverPanel.transform.GetChild(2).GetComponent<Text>().text += "+";
-             }
-
-             uiHandler.GameOverPanel.transform.GetChild(2).GetComponent<Text>().text += "\n=\n";
-
-             for (int i = requestsTxt.Length - 1; i >= 1; i--)
-             {
-                 uiHandler.GameOverPanel.transform.GetChild(2).GetComponent<Text>().text += int.Parse(requestsTxt[i].GetComponent<Text>().text) - int.Parse(requestsTxt[i - 1].GetComponent<Text>().text);
-                 temp += int.Parse(requestsTxt[i].GetComponent<Text>().text) - int.Parse(requestsTxt[i - 1].GetComponent<Text>().text);
-                 if (i >= 2)
-                     uiHandler.GameOverPanel.transform.GetChild(2).GetComponent<Text>().text += "+";
-             }
-         }*/
-
         // Left side move first calculations
         if (_chooseWhichDirSCAN == "left")
         {
