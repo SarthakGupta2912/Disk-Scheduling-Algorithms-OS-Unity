@@ -5,19 +5,19 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 public class uiHandler : MonoBehaviour
 {
-    [SerializeField] GameObject StartPanel, customizePanel;
+    [SerializeField] GameObject StartPanel;
     [SerializeField] LineManager lineManager;
     [SerializeField] Text headPositionText;
     public Text[] inGameSquenceTextBox = new Text[9];
 
-    public GameObject inGamePanel, inGameCanvas, panel1, panel2, GameOverPanel, scanAlgopanel;
+    public GameObject inGamePanel, inGameCanvas, panel1, panel2, GameOverPanel, scanAlgopanel, AlgorithmSelectPanel, customizePanel, headerTxt;
     public int squenceCounter = 0;
     public string _chooseWhichDirSCAN;
     // Start is called before the first frame update
     void Start()
     {
         StartPanel.SetActive(true);
-        customizePanel.SetActive(false);
+        //customizePanel.SetActive(false);
 
         StartCoroutine(StartGame());
         //GenerateRandomsNumberWithoutRepeat(10);
@@ -27,7 +27,7 @@ public class uiHandler : MonoBehaviour
     {
         yield return new WaitForSeconds(3);
         Destroy(StartPanel.gameObject);
-        customizePanel.SetActive(true);
+        AlgorithmSelectPanel.SetActive(true);
     }
 
     public void returnButtonName()
@@ -54,10 +54,10 @@ public class uiHandler : MonoBehaviour
         for (int i = 0; i < size; i++)
             Debug.Log(temp[i]);
     }*/
-    public void DestroyPanel1()
+    /*public void DestroyPanel1()
     {
         Destroy(panel1);
-    }
+    }*/
 
     public void GetHeadPosition(GameObject _this)
     {

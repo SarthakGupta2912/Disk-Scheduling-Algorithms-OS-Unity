@@ -6,15 +6,15 @@ using UnityEngine.UI;
 public class LineManager : MonoBehaviour
 {
     // Line related components
-    string tempSCANString;
     [SerializeField] GameObject[] requestsTxt;
     public int headPosition = 50;
     int requestsProcessed = 0, lineRendPosition = 1, pos_y = 0, pos_x = 0, requestArrayElement = 0;
-    int[] requestArray = new int[7];
+    int[] requestArray = new int[9];
     LineRenderer lineRenderer;
 
     // UI related components
     [SerializeField] uiHandler uiHandler;
+    [SerializeField] AlgorithmSelect algorithmSelect;
     [SerializeField] GameObject button;
     [SerializeField] GameObject imageHighlighter;
     int textBoxSelect = 0, tempHeadValueStore, tempHeadElementStore;
@@ -22,6 +22,9 @@ public class LineManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(algorithmSelect.selectedAlgo == "SCAN" || algorithmSelect.selectedAlgo == "C-SCAN" || algorithmSelect.selectedAlgo == "LOOK")
+            requestArray = new int[7];
+        
         for (int i = 0; i < requestArray.Length; i++)
             requestArray[i] = int.Parse(uiHandler.inGameSquenceTextBox[i].text);
 
@@ -220,7 +223,7 @@ public class LineManager : MonoBehaviour
     }
 
     // Seek time calculation for SSTF
-    public void SeekTimeSSTF(int storeBeginHeadPos)
+    public void SeekTimeSSTF(int storeBeginHeadPos=0)
     {
         uiHandler.inGamePanel.transform.GetChild(2).gameObject.SetActive(true);
         int temp = 0;
@@ -326,7 +329,7 @@ public class LineManager : MonoBehaviour
     }
 
     //SCAN Algorithm
-    public void SCAN(string _chooseWhichDirSCAN)
+    public void SCAN(string _chooseWhichDirSCAN="")
     {
         _chooseWhichDirSCAN = uiHandler._chooseWhichDirSCAN;
         //Check if all the elements or requests are processed or not
@@ -342,36 +345,6 @@ public class LineManager : MonoBehaviour
                 Destroy(button);
                 uiHandler.inGamePanel.transform.GetChild(2).gameObject.SetActive(true);
             }
-            // move towards right only, headposition = 0 or at 1st element
-            /*if (tempHeadElementStore == 0 && _chooseWhichDirSCAN == "")
-            {
-                for (int i = 0; i <= (requestsTxt.Length - 1); i++)
-                {
-                    // check if the element matches the request array element value
-                    if (requestArray[requestArrayElement].ToString() == requestsTxt[i].GetComponent<Text>().text)
-                    {
-                        ImageHighlighterMove(requestArrayElement);
-                        MoveRight(i);
-                        break;
-                    }
-                }
-
-            }*/
-
-            // move towards left only, headposition = 9 or at 10th element
-            /* else if (tempHeadElementStore == requestsTxt.Length - 1 && _chooseWhichDirSCAN == "")
-             {
-                 for (int i = 0; i <= (requestsTxt.Length - 1); i++)
-                 {
-                     // check if the element matches the request array element value
-                     if (requestArray[requestArrayElement].ToString() == requestsTxt[i].GetComponent<Text>().text)
-                     {
-                         ImageHighlighterMove(requestArrayElement);
-                         MoveLeft(i);
-                         break;
-                     }
-                 }
-             }*/
 
             // move in left if both the above condions are false and then moving to right in case the tempHeadElement reaches 0
             else
@@ -469,7 +442,7 @@ public class LineManager : MonoBehaviour
     }
 
     // Seek time calculation for SCAN
-    public void SeekTimeSCAN(int storeBeginHeadPos, string _chooseWhichDirSCAN)
+    public void SeekTimeSCAN(int storeBeginHeadPos=0, string _chooseWhichDirSCAN="")
     {
         //uiHandler.inGamePanel.transform.GetChild(2).gameObject.SetActive(true);
         int temp = 0;
@@ -637,7 +610,7 @@ public class LineManager : MonoBehaviour
     }
 
     //C-SCAN Algorithm
-    public void C_SCAN(string _chooseWhichDirSCAN)
+    public void C_SCAN(string _chooseWhichDirSCAN="")
     {
         _chooseWhichDirSCAN = uiHandler._chooseWhichDirSCAN;
         //Check if all the elements or requests are processed or not
@@ -763,7 +736,7 @@ public class LineManager : MonoBehaviour
     }
 
     // Seek time calculation for C-SCAN
-    public void SeekTimeC_SCAN(int storeBeginHeadPos, string _chooseWhichDirSCAN)
+    public void SeekTimeC_SCAN(int storeBeginHeadPos=0, string _chooseWhichDirSCAN="")
     {
         //uiHandler.inGamePanel.transform.GetChild(2).gameObject.SetActive(true);
         int temp = 0;
@@ -865,6 +838,247 @@ public class LineManager : MonoBehaviour
 
                      temp += int.Parse(requestsTxt[i+1].GetComponent<Text>().text) - int.Parse(requestsTxt[i].GetComponent<Text>().text);
                      uiHandler.GameOverPanel.transform.GetChild(2).GetComponent<Text>().text += int.Parse(requestsTxt[i + 1].GetComponent<Text>().text) - int.Parse(requestsTxt[i].GetComponent<Text>().text);
+            }
+        }
+        uiHandler.GameOverPanel.transform.GetChild(2).GetComponent<Text>().text += "\n=\nThe seek time for your algorithm is: " + temp;
+    }
+
+    //Look Algorithm
+    public void Look(string _chooseWhichDirSCAN = "")
+    {
+        _chooseWhichDirSCAN = uiHandler._chooseWhichDirSCAN;
+        //Check if all the elements or requests are processed or not
+        if (requestsProcessed <= requestsTxt.Length - 2)
+        {
+            if (requestsProcessed == 0)
+            {
+                SeekTimeLook(headPosition, _chooseWhichDirSCAN);
+                sortRequestArrayInAscendingOrder();
+            }
+            if (requestsProcessed == requestsTxt.Length - 3)
+            {
+                Destroy(button);
+                uiHandler.inGamePanel.transform.GetChild(2).gameObject.SetActive(true);
+            }
+
+            // move in left if both the above condions are false and then moving to right in case the tempHeadElement reaches 0
+            else
+            {
+                // Check if left SCAN or right SCAN is chosen
+
+                // move line left side and then right
+                if (_chooseWhichDirSCAN == "left" && requestArrayElement <= requestsTxt.Length - 2)
+                {
+                    Debug.Log(_chooseWhichDirSCAN); ;
+
+                    //moving to right side then
+                    if (tempHeadElementStore == 1)
+                    {
+                        for (int i = 1; i <= (requestsTxt.Length - 2); i++)
+                        {
+                            // check if the element matches the request array element value
+                            if (requestArray[requestArrayElement].ToString() == requestsTxt[i].GetComponent<Text>().text)
+                            {
+                                ImageHighlighterMove(requestArrayElement);
+                                MoveRight(i);
+                                break;
+                            }
+                        }
+                    }
+
+                    else
+                    {
+                        //moving to left side first
+                        tempHeadElementStore = headPosition - 1;
+                        for (int i = tempHeadElementStore; i >= 1; i--)
+                        {
+                            // check if the element matches the request array element value
+                            if (tempHeadElementStore != 0 && requestArray[tempHeadElementStore - 1].ToString() == requestsTxt[i].GetComponent<Text>().text)
+                            {
+                                ImageHighlighterMove(tempHeadElementStore - 1);
+                                MoveLeft(i);
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                // move line right side and then left
+                if (_chooseWhichDirSCAN == "right" && requestArrayElement <= requestsTxt.Length - 2)
+                {
+                    //moving to right side 
+                    if (tempHeadElementStore <= requestsTxt.Length - 2 && headPosition <= requestsTxt.Length - 2)
+                    {
+                        tempHeadElementStore = headPosition + 1;
+
+                        for (int i = tempHeadElementStore; i <= (requestsTxt.Length - 2); i++)
+                        {
+                            // check if the element matches the request array element value
+                            if (requestArray[tempHeadElementStore - 2].ToString() == requestsTxt[i].GetComponent<Text>().text)
+                            {
+                                ImageHighlighterMove(tempHeadElementStore - 2);
+                                MoveRight(i);
+                                break;
+                            }                         
+                        }
+                        if (tempHeadElementStore == requestsTxt.Length - 1)
+                        {
+                            ImageHighlighterMove((headPosition - requestArrayElement)-2);
+                            MoveLeft((headPosition-requestArrayElement)-1);
+                            requestArrayElement = headPosition;
+                        }
+                    }
+                   
+                    //moving to left side then
+                    else
+                    {
+                        for (int i = requestArrayElement; i >= 0; i--)
+                        {
+                            if(requestArrayElement == headPosition)
+                            {
+                                if (requestArray[requestArrayElement - 2].ToString() == requestsTxt[i].GetComponent<Text>().text)
+                                {
+                                    Debug.Log("left!");
+
+                                    ImageHighlighterMove(requestArrayElement - 2);
+                                    MoveLeft(i);
+                                    requestArrayElement = headPosition - 1;
+                                    break;
+                                }
+                            }
+
+                            else if (requestArray[requestArrayElement - 1].ToString() == requestsTxt[i].GetComponent<Text>().text)
+                            {
+                                ImageHighlighterMove(requestArrayElement - 1);
+                                MoveLeft(i);
+                                requestArrayElement = headPosition - 1;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        else
+            Debug.Log("SCAN algorithm completed successfully!");
+    }
+
+    // Seek time calculation for Look
+    public void SeekTimeLook(int storeBeginHeadPos = 0, string _chooseWhichDirSCAN = "")
+    {
+        //uiHandler.inGamePanel.transform.GetChild(2).gameObject.SetActive(true);
+        int temp = 0;
+
+        // Left side move first calculations
+        if (_chooseWhichDirSCAN == "left")
+        {
+            //left calculation
+            for (int i = storeBeginHeadPos; i > 1; i--)
+            {
+                uiHandler.GameOverPanel.transform.GetChild(2).GetComponent<Text>().text += "(" + requestsTxt[i].GetComponent<Text>().text + "-" + requestsTxt[i - 1].GetComponent<Text>().text + ")";
+                if (i >= 3)
+                    uiHandler.GameOverPanel.transform.GetChild(2).GetComponent<Text>().text += "+";
+            }
+
+
+            //right calculation
+            for (int i = storeBeginHeadPos; i <= requestsTxt.Length - 3; i++)
+            {
+                if (i <= requestsTxt.Length - 3 && (i != 1 || storeBeginHeadPos != 1))
+                    uiHandler.GameOverPanel.transform.GetChild(2).GetComponent<Text>().text += "+";
+
+                if (i == storeBeginHeadPos)
+                    uiHandler.GameOverPanel.transform.GetChild(2).GetComponent<Text>().text += "(" + requestsTxt[i + 1].GetComponent<Text>().text + "-" + requestsTxt[1].GetComponent<Text>().text + ")";
+
+                else
+                    uiHandler.GameOverPanel.transform.GetChild(2).GetComponent<Text>().text += "(" + requestsTxt[i + 1].GetComponent<Text>().text + "-" + requestsTxt[i].GetComponent<Text>().text + ")";
+            }
+
+            uiHandler.GameOverPanel.transform.GetChild(2).GetComponent<Text>().text += "\n=\n";
+
+            //left calculation
+            for (int i = storeBeginHeadPos; i > 1; i--)
+            {
+                uiHandler.GameOverPanel.transform.GetChild(2).GetComponent<Text>().text += int.Parse(requestsTxt[i].GetComponent<Text>().text) - int.Parse(requestsTxt[i - 1].GetComponent<Text>().text);
+                temp += int.Parse(requestsTxt[i].GetComponent<Text>().text) - int.Parse(requestsTxt[i - 1].GetComponent<Text>().text);
+                if (i >= 3)
+                    uiHandler.GameOverPanel.transform.GetChild(2).GetComponent<Text>().text += "+";
+
+            }
+
+            //right calculation
+            for (int i = storeBeginHeadPos; i <= requestsTxt.Length - 3; i++)
+            {
+
+                if (i <= requestsTxt.Length - 3 && (i != 1 || storeBeginHeadPos != 1))
+                    uiHandler.GameOverPanel.transform.GetChild(2).GetComponent<Text>().text += "+";
+
+                if (i == storeBeginHeadPos)
+                {
+                    uiHandler.GameOverPanel.transform.GetChild(2).GetComponent<Text>().text += int.Parse(requestsTxt[i + 1].GetComponent<Text>().text) - int.Parse(requestsTxt[1].GetComponent<Text>().text);
+                    temp += int.Parse(requestsTxt[i + 1].GetComponent<Text>().text) - int.Parse(requestsTxt[1].GetComponent<Text>().text);
+                }
+
+                else
+                {
+                    uiHandler.GameOverPanel.transform.GetChild(2).GetComponent<Text>().text += int.Parse(requestsTxt[i + 1].GetComponent<Text>().text) - int.Parse(requestsTxt[i].GetComponent<Text>().text);
+                    temp += int.Parse(requestsTxt[i + 1].GetComponent<Text>().text) - int.Parse(requestsTxt[i].GetComponent<Text>().text);
+                }
+
+            }
+        }
+
+        // Right side move first calculations
+        if (_chooseWhichDirSCAN == "right")
+        {
+            //right calculation
+            for (int i = storeBeginHeadPos; i < requestsTxt.Length - 2; i++)
+            {
+                uiHandler.GameOverPanel.transform.GetChild(2).GetComponent<Text>().text += "(" + requestsTxt[i + 1].GetComponent<Text>().text + "-" + requestsTxt[i].GetComponent<Text>().text + ")";
+                if (i <= requestsTxt.Length - 4)
+                    uiHandler.GameOverPanel.transform.GetChild(2).GetComponent<Text>().text += "+";
+            }
+
+            //left calculation after right is complete
+            for (int i = storeBeginHeadPos; i > 1; i--)
+            {
+                if (i >= 2 && (i != requestsTxt.Length-2 || storeBeginHeadPos != requestsTxt.Length - 2))
+                    uiHandler.GameOverPanel.transform.GetChild(2).GetComponent<Text>().text += "+";
+
+                if (i == storeBeginHeadPos)
+                    uiHandler.GameOverPanel.transform.GetChild(2).GetComponent<Text>().text += "(" + requestsTxt[requestsTxt.Length - 2].GetComponent<Text>().text + "-" + requestsTxt[i - 1].GetComponent<Text>().text + ")";
+                else
+                    uiHandler.GameOverPanel.transform.GetChild(2).GetComponent<Text>().text += "(" + requestsTxt[i].GetComponent<Text>().text + "-" + requestsTxt[i - 1].GetComponent<Text>().text + ")";
+            }
+
+            uiHandler.GameOverPanel.transform.GetChild(2).GetComponent<Text>().text += "\n=\n";
+
+            //right calculation
+            for (int i = storeBeginHeadPos; i < requestsTxt.Length - 2; i++)
+            {
+                uiHandler.GameOverPanel.transform.GetChild(2).GetComponent<Text>().text += int.Parse(requestsTxt[i + 1].GetComponent<Text>().text) - int.Parse(requestsTxt[i].GetComponent<Text>().text);
+                temp += int.Parse(requestsTxt[i + 1].GetComponent<Text>().text) - int.Parse(requestsTxt[i].GetComponent<Text>().text);
+
+                if (i <= requestsTxt.Length - 4)
+                    uiHandler.GameOverPanel.transform.GetChild(2).GetComponent<Text>().text += "+";
+            }
+
+            //left calculation after right is complete
+            for (int i = storeBeginHeadPos; i > 1; i--)
+            {
+                if (i >= 2 && (i != requestsTxt.Length - 2 || storeBeginHeadPos != requestsTxt.Length - 2))
+                    uiHandler.GameOverPanel.transform.GetChild(2).GetComponent<Text>().text += "+";
+
+                if (i == storeBeginHeadPos)
+                {
+                    uiHandler.GameOverPanel.transform.GetChild(2).GetComponent<Text>().text += int.Parse(requestsTxt[requestsTxt.Length - 2].GetComponent<Text>().text) - int.Parse(requestsTxt[i - 1].GetComponent<Text>().text);
+                    temp += int.Parse(requestsTxt[requestsTxt.Length - 2].GetComponent<Text>().text) - int.Parse(requestsTxt[i - 1].GetComponent<Text>().text);
+                }
+                else
+                {
+                    uiHandler.GameOverPanel.transform.GetChild(2).GetComponent<Text>().text += int.Parse(requestsTxt[i].GetComponent<Text>().text) - int.Parse(requestsTxt[i - 1].GetComponent<Text>().text);
+                    temp += int.Parse(requestsTxt[i].GetComponent<Text>().text) - int.Parse(requestsTxt[i - 1].GetComponent<Text>().text);
+                }
             }
         }
         uiHandler.GameOverPanel.transform.GetChild(2).GetComponent<Text>().text += "\n=\nThe seek time for your algorithm is: " + temp;

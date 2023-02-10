@@ -7,17 +7,25 @@ public class CreateSequence : MonoBehaviour
 {
     public Text squenceTextBox;
     [SerializeField] uiHandler uiHandler;
+    [SerializeField] AlgorithmSelect algorithmSelect;
+    int sequenceCount = 8, inGameSquenceTextBoxIndexToReduce=0;
     public void Createsequence(GameObject _this)
     {
         squenceTextBox.text += _this.transform.GetChild(0).GetComponent<Text>().text + ' ';
         Destroy(_this);
 
-        if (uiHandler.squenceCounter == 6)
+        if (algorithmSelect.selectedAlgo == "SCAN" || algorithmSelect.selectedAlgo == "C-SCAN" || algorithmSelect.selectedAlgo == "LOOK")
+        {
+            inGameSquenceTextBoxIndexToReduce = 2;
+            sequenceCount = 6;
+        }
+
+        if (uiHandler.squenceCounter == sequenceCount)
         {
             string[] trimmedStr = new string[9];
             trimmedStr = squenceTextBox.text.Split(' ');
 
-            for (int i = 0; i < uiHandler.inGameSquenceTextBox.Length-2; i++)
+            for (int i = 0; i < uiHandler.inGameSquenceTextBox.Length-inGameSquenceTextBoxIndexToReduce; i++)
             {
                 uiHandler.inGameSquenceTextBox[i].text += trimmedStr[i];
             }
