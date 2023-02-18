@@ -14,7 +14,7 @@ public class AlgorithmSelect : MonoBehaviour
         selectedAlgo = EventSystem.current.currentSelectedGameObject.transform.GetChild(0).GetComponent<Text>().text;
         uiHandler.customizePanel.SetActive(true);
 
-        if (selectedAlgo == "SCAN" || selectedAlgo == "C-SCAN" || selectedAlgo == "LOOK")
+        if (selectedAlgo == "SCAN" || selectedAlgo == "C-SCAN" || selectedAlgo == "LOOK" || selectedAlgo == "C-LOOK")
         {
             uiHandler.scanAlgopanel.SetActive(true);
 
@@ -52,6 +52,11 @@ public class AlgorithmSelect : MonoBehaviour
         {
             uiHandler.inGamePanel.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(delegate {lineManager.Look(); });
             uiHandler.headerTxt.GetComponent<Text>().text = "LOOK Algorithm";
+        }
+        else if (selectedAlgo == "C-LOOK")
+        {
+            uiHandler.inGamePanel.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(delegate { lineManager.CLook(); });
+            uiHandler.headerTxt.GetComponent<Text>().text = "C-LOOK Algorithm";
         }
 
         uiHandler.AlgorithmSelectPanel.SetActive(false);

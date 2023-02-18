@@ -14,7 +14,7 @@ public class CreateSequence : MonoBehaviour
         squenceTextBox.text += _this.transform.GetChild(0).GetComponent<Text>().text + ' ';
         Destroy(_this);
 
-        if (algorithmSelect.selectedAlgo == "SCAN" || algorithmSelect.selectedAlgo == "C-SCAN" || algorithmSelect.selectedAlgo == "LOOK")
+        if (algorithmSelect.selectedAlgo == "SCAN" || algorithmSelect.selectedAlgo == "C-SCAN" || algorithmSelect.selectedAlgo == "LOOK" || algorithmSelect.selectedAlgo == "C-LOOK")
         {
             inGameSquenceTextBoxIndexToReduce = 2;
             sequenceCount = 6;
