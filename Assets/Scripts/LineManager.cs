@@ -1154,7 +1154,7 @@ public class LineManager : MonoBehaviour
     // Seek time calculation for Look
     public void SeekTimeCLook(int storeBeginHeadPos = 0, string _chooseWhichDirSCAN = "")
     {
-        uiHandler.inGamePanel.transform.GetChild(2).gameObject.SetActive(true);
+        //uiHandler.inGamePanel.transform.GetChild(2).gameObject.SetActive(true);
         int temp = 0;
 
         // Left side move first calculations
